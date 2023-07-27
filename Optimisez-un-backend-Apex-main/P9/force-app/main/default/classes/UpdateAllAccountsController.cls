@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             : 
- * @last modified on  : 07-24-2023
+ * @last modified on  : 07-25-2023
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 **/
 global class UpdateAllAccountsController implements Database.Batchable<sObject>{
@@ -15,7 +15,7 @@ global class UpdateAllAccountsController implements Database.Batchable<sObject>{
     
    global void execute(Database.BatchableContext info, List<Account> scope){
        Set<Id> setAccountIds = (new Map<Id,SObject>(scope)).keySet();
-       AP01Account.updateChiffreAffaire(setAccountIds);
+       //AP01Account.updateChiffreAffaire(setAccountIds);
    }    
     
    global void finish(Database.BatchableContext info){     
