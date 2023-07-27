@@ -2,10 +2,10 @@
  * @description       : 
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             : 
- * @last modified on  : 07-26-2023
+ * @last modified on  : 07-27-2023
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 **/
-public class UpdateAllAccountCA implements Database.Batchable<sObject>{
+public class UpdateAllAccountCABatch implements Database.Batchable<sObject>{
    // public UpdateAmountAccount() {
     public Integer recordsProcessed = 0;
         public Database.QueryLocator start(Database.BatchableContext bc) {
