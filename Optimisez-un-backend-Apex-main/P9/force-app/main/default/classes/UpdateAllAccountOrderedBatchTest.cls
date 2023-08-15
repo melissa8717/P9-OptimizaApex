@@ -27,6 +27,14 @@ public with sharing class UpdateAllAccountOrderedBatchTest {
 
         }
         insert ordItemList;
+        
+        List<Order> orders = [SELECT Id, Status FROM Order LIMIT 150];
+ 
+        for(Order order: orders){
+            order.status = 'Activated';
+        }
+        update orders;
+        system.debug('ord'+orders);
 
     }
     @isTest static void testCreateAccount(){
@@ -76,13 +84,7 @@ public with sharing class UpdateAllAccountOrderedBatchTest {
     }
      
     @isTest static void test() {
-        List<Order> orders = [SELECT Id, Status FROM Order LIMIT 150];
- 
-        for(Order order: orders){
-            order.status = 'Activated';
-        }
-        update orders;
-        system.debug('ord'+orders);
+    
         Test.startTest();
       
 		UpdateAllAccountOrderedBatch up = new UpdateAllAccountOrderedBatch();
@@ -99,8 +101,7 @@ public with sharing class UpdateAllAccountOrderedBatchTest {
         Decimal total = (Decimal)resultQuery[0].get('sumAmount');
         Decimal ca = acc[0].Chiffre_d_affaire__c + total;
         for(Account account : acc){
-            System.assertEquals(426500,ca );
+            System.assertEquals(1226500,ca );
         }
-        //System.assertEquals(ca, [select Id, Chiffre_d_affaire__c from Account where Chiffre_d_affaire__c = 7500]);
     }
 }
