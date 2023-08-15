@@ -49,6 +49,6 @@ public class MyTeamOrdersTest {
         Decimal result = myTeamC.SumOders;
 
         Test.stopTest();
-        System.assertNotEquals(result, total);
+        System.assertEquals(result, total);
     }
 }
