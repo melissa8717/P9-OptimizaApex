@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             : 
- * @last modified on  : 08-15-2023
+ * @last modified on  : 08-22-2023
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 **/
 @isTest
@@ -39,7 +39,7 @@ public class CalculMontantTest {
     
     @isTest static void test() {
         //CA =CA + total amount
-        OrderCalculateAmountClass orderCalculate = new OrderCalculateAmountClass();
+        OrderCalculateAmountController orderCalculate = new OrderCalculateAmountController();
         Test.startTest();
         
         List<Account> acc = [SELECT id FROM Account LIMIT 1];
@@ -59,7 +59,7 @@ public class CalculMontantTest {
         Decimal netAmount = totalAmount - shipment;
 
         Test.stopTest();
-        OrderCalculateAmountClass instance = new OrderCalculateAmountClass();
+        OrderCalculateAmountController instance = new OrderCalculateAmountController();
 		//system.debug('netamount'+netAmount);
   		//Decimal result = instance.calculateTotal(order);
  

@@ -9,7 +9,7 @@ trigger OrderTrigger on Order (before update, after update) {
     if (Trigger.isupdate) {
          if (Trigger.isBefore) {
              List<Order> listOrder= trigger.new;
-             OrderCalculateAmountClass instance = new OrderCalculateAmountClass();
+             OrderCalculateAmountController instance = new OrderCalculateAmountController();
                 instance.calculateTotal(listOrder);
  
          } else if (Trigger.isAfter) {
