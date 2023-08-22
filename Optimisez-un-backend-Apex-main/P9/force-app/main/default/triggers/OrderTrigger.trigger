@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             : 
- * @last modified on  : 08-21-2023
+ * @last modified on  : 08-22-2023
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 **/
 trigger OrderTrigger on Order (before update, after update) {
@@ -13,7 +13,7 @@ trigger OrderTrigger on Order (before update, after update) {
                 instance.calculateTotal(listOrder);
  
          } else if (Trigger.isAfter) {
-             OrderTotal instance = new OrderTotal();
+             OrderTotalControllerinstance = new OrderTotal();
              instance.getTotal(trigger.new); 
          }        
      }

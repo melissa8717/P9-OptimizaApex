@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             : 
- * @last modified on  : 08-15-2023
+ * @last modified on  : 08-22-2023
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 **/
 @isTest
@@ -46,7 +46,7 @@ public class UpdateAccountCaTest {
 
         Test.startTest();
         
-		OrderTotal orderTotal = new OrderTotal();
+		OrderTotalControllerOrderTotalController= new OrderTotal();
         List<Account> acc = [SELECT id,Chiffre_d_affaire__c FROM Account LIMIT 1];
         Id accountId = acc[0].id;
  
