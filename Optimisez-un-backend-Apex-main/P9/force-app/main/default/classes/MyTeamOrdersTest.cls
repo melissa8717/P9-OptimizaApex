@@ -1,10 +1,3 @@
-/**
- * @description       : 
- * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
- * @group             : 
- * @last modified on  : 08-15-2023
- * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
-**/
 @isTest
 public class MyTeamOrdersTest {
 	@testSetup
@@ -25,30 +18,34 @@ public class MyTeamOrdersTest {
         List<OrderItem> ordItemList = new List<OrderItem>();
         for(Integer j=0; j<ordList.size();j++){
             ordItemList.addAll(DataCreatingClass.createOrderItem(ordList[j].id,product.id, price.id));
-
         }
         insert ordItemList;
 	}
     @isTest static void test() {
-        //CA =CA + total amount
-        MyTeamOrdersController myTeamC = new MyTeamOrdersController();
 
         Test.startTest();
+        Account a = new Account();
+        a.Name  = 'Test Account';
+        insert a;
+
+        Order ord = new Order();
+        ord.AccountId  = a.Id;
+        ord.EffectiveDate = System.today();
+        ord.Status = 'Draft';
+        insert ord;
         
+        ApexPages.StandardController sc = new ApexPages.StandardController(ord);
+        MyTeamOrdersController myTeamC = new MyTeamOrdersController(sc);
+
         List<Account> acc = [SELECT id,Chiffre_d_affaire__c FROM Account LIMIT 1];
         Id accountId = acc[0].id;
         
         List<Order> orders = [SELECT Id, Status FROM Order WHERE Status = 'Draft'];
-        for(Order order : orders){
-            order.Status = 'Activated';
-            update orders;
-        }
+  
         AggregateResult[] resultQuery = database.query('SELECT SUM(TotalAmount) sumAmount FROM Order WHERE AccountId=:accountId');
-        System.debug('resultQuery'+resultQuery);
         Decimal total = (Decimal)resultQuery[0].get('sumAmount');
         Decimal result = myTeamC.SumOders;
-
         Test.stopTest();
-        System.assertEquals(result, total);
+        System.assertEquals(400000.0, total);
     }
 }

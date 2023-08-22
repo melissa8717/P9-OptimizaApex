@@ -1,11 +1,8 @@
-/**
- * @description       : 
- * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
- * @group             : 
- * @last modified on  : 08-15-2023
- * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
-**/
 public without sharing class MyTeamOrdersController {
+    
+   private ApexPages.StandardController controller {get; set;}
+   private Order ord;
+
     public Decimal SumOders{
         get{
   			AggregateResult groupedResults = [SELECT SUM(TotalAmount) total FROM Order WHERE Status = 'Activated'];
@@ -13,5 +10,10 @@ public without sharing class MyTeamOrdersController {
 
         }
         set;
+    }
+     public MyTeamOrdersController(ApexPages.StandardController controller) {
+        //initialize the stanrdard controller
+        this.controller = controller;
+        this.ord = (Order)controller.getRecord();
     }
 }
