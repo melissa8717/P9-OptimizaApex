@@ -8,9 +8,9 @@
 trigger OrderTrigger on Order (before update) {
    if (Trigger.isUpdate) {
         if (Trigger.isBefore) {
-			OrderCalculateAmountClass instance = new OrderCalculateAmountClass();
+			OrderCalculateAmountController instance = new OrderCalculateAmountController();
    			instance.calculateTotal(trigger.new);
-            OrderTotal instanceOrder = new OrderTotal();
+            OrderTotalController instanceOrder = new OrderTotalController();
     		instanceOrder.getTotal(trigger.new);
 
         }        
