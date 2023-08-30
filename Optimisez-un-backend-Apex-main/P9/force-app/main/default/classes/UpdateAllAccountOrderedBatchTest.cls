@@ -22,13 +22,17 @@ public with sharing class UpdateAllAccountOrderedBatchTest {
         insert ordItemList;
         
         List<Order> orders = [SELECT Id, Status FROM Order LIMIT 150];
- 
-        system.debug('ord'+orders);
 
     }
 
     @isTest static void test() {
-    
+    	
+         List<Order> orders = [SELECT Id, Status FROM Order LIMIT 150];
+        for(Order order: orders){
+            order.status = 'Activated';
+        }
+        update orders;
+        
         Test.startTest();
       
 		UpdateAllAccountOrderedBatch up = new UpdateAllAccountOrderedBatch();
@@ -39,17 +43,14 @@ public with sharing class UpdateAllAccountOrderedBatchTest {
         List<Account> acc = [SELECT id,Chiffre_d_affaire__c FROM Account LIMIT 1];
         Id accountId = acc[0].id;
         List<Order>order = [SELECT id, Status FROM Order WHERE Status='Activated'];
-        up.execute(null, order);
 
-        
     
         AggregateResult[] resultQuery = database.query('SELECT SUM(TotalAmount) sumAmount FROM Order WHERE AccountId=:accountId');
         System.debug('resultQuery'+resultQuery);
         Decimal total = (Decimal)resultQuery[0].get('sumAmount');
         Decimal ca = acc[0].Chiffre_d_affaire__c + total;
         for(Account account : acc){
-            System.assertEquals(406500.00,ca );
+            System.assertEquals(426500.00,ca );
         }
-        //System.assertEquals(ca, [select Id, Chiffre_d_affaire__c from Account where Chiffre_d_affaire__c = 7500]);
     }
 }

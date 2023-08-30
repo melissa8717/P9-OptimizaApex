@@ -1,10 +1,3 @@
-/**
- * @description       : 
- * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
- * @group             : 
- * @last modified on  : 08-22-2023
- * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
-**/
 @isTest
 public class UpdateAccountCaTest {
 	@testSetup
@@ -43,6 +36,7 @@ public class UpdateAccountCaTest {
            orderList[i].Status = 'Activated';     
         }
         update orderList;
+
             
         AggregateResult[] resultQuery = database.query('SELECT SUM(TotalAmount) sumAmount FROM Order WHERE AccountId=:accountId');
         System.debug('resultQuery'+orderList);

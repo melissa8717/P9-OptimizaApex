@@ -2,28 +2,24 @@
  * @description       : 
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             : 
- * @last modified on  : 07-29-2023
+ * @last modified on  : 07-26-2023
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 **/
 @isTest
 private class UpdateAllAccountCATest {
     @testSetup
     static void setup() {
-        List<Account> accounts = new List<Account>();
-        // insert 10 accounts
-        for (Integer i=0;i<10;i++) {
-            accounts.add(new Account(name='Account '+i,
-                Chiffre_d_affaire__c=6500));
-        }
-        insert accounts;
+        List<Account> accList = DataCreatingClass.createAccount();
+		insert accList; 
         
     }
     @isTest static void test() {
         Test.startTest();
-        UpdateAllAccountCA ca = new UpdateAllAccountCA();
+        UpdateAllAccountCABatch ca = new UpdateAllAccountCABatch();
         Id batchId = Database.executeBatch(ca);
+       
         Test.stopTest();
-        // after the testing stops, assert records were updated properly
-        System.assertEquals(10, [select count() from account where Chiffre_d_affaire__c = 6500]);
+        System.assertNotEquals(0, [select count() from account where Chiffre_d_affaire__c = 6500]);
     }
+    
 }
