@@ -6,7 +6,7 @@
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 **/
 @isTest
-public class CalculMontantTest {
+public class OrderCalculateAmountTest {
     @testSetup
     static void setup() {
 	  List<Account> accounts = new List<Account>();
