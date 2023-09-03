@@ -16,15 +16,13 @@ public without sharing class OrderTotal {
         for(Integer i =0; i<orders.size();i++){
           	accountMap.put((Id)resultAccount[i].get('Id'), (Decimal)resultAccount[i].get('Chiffre_d_affaire__c'));
          }
-        system.debug('map22'+accountMap);
-        system.debug('mapid'+accountMap.keySet());
+       
        
         Decimal ca =0;
         AggregateResult[] orderTotal = database.query('select SUM(TotalAmount) total FROM Order WHERE Id in:orders');
  system.debug(orderTotal);
          for(Order ord : orders){
                 if(accountMap.containsKey(ord.AccountId)==true){
-                    //ca = accountMap.get('Chiffre_d_affaire__c')+ ord.TotalAmount;
                      for(Integer i=0;i<orderTotal.size();i++){
                         Decimal total = (Decimal)orderTotal[i].get('total');
             			resultAccount[i].Chiffre_d_affaire__c += total;
@@ -38,16 +36,7 @@ public without sharing class OrderTotal {
         public void getTotal(List<Account> accounts){
         	    // Use a map to store the total amount for each account 
             Map<Id, Decimal> accountCA = new Map<Id, Decimal>();
-            /*for(AggregateResult order : [
-                SELECT AccountId, SUM(TotalAmount) totalAmount 
-                FROM Order 
-                WHERE AccountId = :accounts 
-                GROUP BY AccountId
-            ]){
-                system.debug('orderIdAccount'+order.get('AccountId'));
-                system.debug('orderquery'+order);//vide
-                //accountCA.put((Id)order.get('AccountId'), (Decimal)order.get('TotalAmount'));
-            }*/
+           
             AggregateResult[] resultOrder= null;
             for(Integer i=0;i<accounts.size();i++){
                 Id accountId = accounts[i].Id;
@@ -61,7 +50,6 @@ public without sharing class OrderTotal {
            
             for(Account acc : accounts){
                 if(accountCA.containsKey(acc.Id)==true){
-                //acc.Chiffre_d_affaire__c = accountCA.containsKey(acc.Id) ? accountCA.get(acc.Id) : 0;
                 acc.Chiffre_d_affaire__c = acc.Chiffre_d_affaire__c + accountCA.get('TotalAmount');
                 }
             }
