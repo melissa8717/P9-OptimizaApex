@@ -46,13 +46,10 @@ public class OrderCalculateAmountTest {
         Id accountId = acc[0].id;
         System.debug('id acc'+accountId);
  
-    	//List<Order> order = [SELECT id,ShipmentCost__c  FROM Order WHERE AccountId=:accountId];
         AggregateResult[] resultShipment = database.query('SELECT SUM(ShipmentCost__c) sumShipment FROM Order WHERE AccountId=:accountId');
 
         AggregateResult[] resultTotal = database.query('SELECT SUM(TotalAmount) sumAmount FROM Order WHERE AccountId=:accountId');
-        //System.debug('order'+resultQuery);
         system.debug('idacc'+accountId);
-		//AggregateResult[] orderUpdated = database.query('select SUM(NetAmount__c)  sumNet FROM Order WHERE AccountId=:accountId');
         //system.debug('query'+orderUpdated[0]);
         Decimal totalAmount = (Decimal)resultTotal[0].get('sumAmount');
         Decimal shipment = (Decimal)resultShipment[0].get('sumShipment');
@@ -60,8 +57,7 @@ public class OrderCalculateAmountTest {
 
         Test.stopTest();
         OrderCalculateAmountController instance = new OrderCalculateAmountController();
-		//system.debug('netamount'+netAmount);
-  		//Decimal result = instance.calculateTotal(order);
+	
  
         System.assertEquals(398000,netAmount );
     }
