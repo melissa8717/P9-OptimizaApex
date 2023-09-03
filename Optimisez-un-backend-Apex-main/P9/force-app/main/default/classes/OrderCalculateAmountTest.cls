@@ -38,19 +38,15 @@ public class OrderCalculateAmountTest {
 	}
     
     @isTest static void test() {
-        //CA =CA + total amount
         OrderCalculateAmountController orderCalculate = new OrderCalculateAmountController();
         Test.startTest();
         
         List<Account> acc = [SELECT id FROM Account LIMIT 1];
         Id accountId = acc[0].id;
-        System.debug('id acc'+accountId);
  
         AggregateResult[] resultShipment = database.query('SELECT SUM(ShipmentCost__c) sumShipment FROM Order WHERE AccountId=:accountId');
 
         AggregateResult[] resultTotal = database.query('SELECT SUM(TotalAmount) sumAmount FROM Order WHERE AccountId=:accountId');
-        system.debug('idacc'+accountId);
-        //system.debug('query'+orderUpdated[0]);
         Decimal totalAmount = (Decimal)resultTotal[0].get('sumAmount');
         Decimal shipment = (Decimal)resultShipment[0].get('sumShipment');
         Decimal netAmount = totalAmount - shipment;
